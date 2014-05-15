@@ -1,0 +1,21 @@
+<a href="#/surveys" class='btn btn-primary' ng-show="showBackButton">BACK</a>
+
+<div id='survey-preview' class='survey-preview'>
+	<div class='area-label'>Name: {{ survey.name }} </div>
+	<div ng-show="askDemos.length">
+		<h1>Demographic Questions</h1>
+		<ciq-question ng-repeat="dq in askDemos" qtext="{{dq.qtext}}" qtype="{{dq.qtype}}" question="dq">
+		</ciq-question>
+	</div>
+
+	<div ng-show="surveyOptions.customQuestions.length">
+		<h1>Custom Questions</h1>
+		<ciq-question ng-repeat="cq in surveyOptions.customQuestions" qtext="{{ cq }}" qtype="1">
+		</ciq-question>
+	</div>
+	<div class='survey-preview-cat-area' ng-repeat="catInfo in cats" ng-show="survey.questions_by_cat[catInfo[0]].length">
+		<h1>Category: {{ catInfo[1] }}</h1>
+		<div class="survey-preview-question" ng-repeat="question in survey.questions_by_cat[catInfo[0]]" ng-include="'/static/partials/question-preview.html'">
+		</div>
+	</div>
+</div>

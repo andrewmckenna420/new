@@ -1,0 +1,85 @@
+<ul class="nav nav-tabs">
+	<li class="active"><a data-toggle="tab" ng-click="activeTab = 'options'">Survey Options</a></li>
+	<li><a data-toggle="tab" ng-click="activeTab = 'makeLive'">Make Survey Live</a></li>
+</ul>
+
+<div ng-show="activeTab == 'options'" id="optionsTab">
+	<form class="form-horizontal" role="form">
+		<ciq-form-input labelname="Logo">
+				<div ng-hide="surveyOptions.logoId">
+					<div id="file-drop" ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="optional-css-class">drop logo here</div>
+				</div>
+				<div ng-show="surveyOptions.logoId">
+					<img ng-src="/get_img/{{ surveyOptions.logoId }}" ng-if="surveyOptions.logoId" />
+					<button type="button" class="btn btn-primary" ng-click="removeLogo()">Remove</button>
+				</div>
+		</ciq-form-input>
+		<ciq-form-input labelname="Company Name">
+			<input ng-model="surveyOptions.companyName" type="text" class="form-control" placeholder="enter name" ng-blur="coNameChange()">
+		</ciq-form-input>
+		<ciq-form-input labelname="Pay & Benefits">
+			<button type="button" btn-checkbox class="btn btn-checkbox" ng-model="surveyOptions.excludePay" ng-change="optionChanged('excludePay')">{{surveyOptions.excludePay ? "Exclude" : "Include"  }}</button>
+		</ciq-form-input>
+		<ciq-form-input labelname="Demo Questions">
+			<div ng-repeat="dq in demoQuestions">
+				<input type="checkbox" ng-model="surveyOptions.demo[dq.id]" ng-change="optionChanged('demo', dq.id)">{{ dq.qtext }}
+			</div>
+		</ciq-form-input>
+		<ciq-form-input labelname="Custom Questions">
+			<input ng-model="surveyOptions.newCustomQ" type="text" class="form-control" placeholder="enter question" ciq-enter="addCustomQ()">
+			<ul class="sortable-list" ui-sortable="sortableCustomQ" ng-model="surveyOptions.customQuestions">
+				<li ng-repeat="cq in surveyOptions.customQuestions">
+					{{ cq }} <a class="delete-item" ng-click="delCustomQ($index)">x</a>
+				</li>
+			</ul>
+		</ciq-form-input>
+	</form>
+	<div id="saved-status"><span ng-hide="saving">Options Saved</span><span ng-show="saving">Options Saving</span></div>
+	<div>
+		<button class="btn btn-primary" ng-click="previewSurvey()">Preview</button>
+	</div>
+</div>
+
+<div ng-show="activeTab == 'makeLive'">
+	<form>
+		<ciq-form-input labelname="Completion Date">
+			<div ng-hide="dateSet">
+				BOOL: {{ opened }}<br>
+				FD: {{ instance.final_date }}<br>
+				MD: {{ minDate }}<br>
+				<p class="input-group">
+				<input type="text" class="form-control" datepicker-popup="mediumDate" ng-model="instance.final_date" is-open="opened" min="minDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" show-button-bar="false" show-weeks="false" />
+				<span class="input-group-btn">
+					<button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+				</p>
+				<button type="button" class="btn btn-primary" ng-click="setDate()" ng-disabled="!instance.final_date">Continue</button>
+			</div>
+			<div ng-show="dateSet">
+				{{ instance.final_date }}
+			</div>
+		</ciq-form-input>
+		<ciq-form-input labelname="Method" ng-show="dateSet">
+			<button type="button" ng-class="btnCheckboxClass" btn-radio="2" ng-model="instance.sendMethod">You</button>
+			<button type="button" ng-class="btnCheckboxClass" btn-radio="1" ng-model="instance.sendMethod">Us</button>
+			<br>
+			SNEDMETHOD: {{ instance.sendMethod }}
+		</ciq-form-input>
+		<ciq-form-input labelname="Instance" ng-show="instance.token">
+			<div>
+				<a href="/takesurvey/{{instance.token}}" target="_blank">Take Survey</a>
+				<button ng-class="btnClass" ng-click="previewInstance()" type="button">Preview Live Survey</button>
+			</div>
+		</ciq-form-input>
+		<ciq-form-input labelname="Whatnot" ng-show="instance.sendMethod && !instance.token">
+			<button type="button" ng-class="btnClass"  ng-click="makeLive()">Make Live</button>
+		</ciq-form-input>
+		<ciq-form-input labelname="">
+			<button type="button" ng-class="btnClass"  ng-click="cancelLive()">Cancel</button>
+		</ciq-form-input>
+		<ciq-alerts />
+	</form>
+</div>
+
+<div ng-include="'/static/partials/survey-preview-modal.html'"></div>
+<div ng-include="'/static/partials/survey-instance-preview-modal.html'"></div>

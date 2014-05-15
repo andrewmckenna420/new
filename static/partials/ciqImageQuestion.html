@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12" style="padding:0px">Q2. This is a question where you will get to choose one of six images?</div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col-xs-6 col-sm-4 imageSelection" style="padding: 0px;" ng-repeat="number in numberOfImages" ng-click="select(number)" ng-class="itemClass(number)">
+            <img class="img-responsive col-xs-12 col-sm-12" style="padding: 2px" ng-src="../static/images/bentley.jpg">
+        </div>
+    </div>
+    <div class="row">
+        <textarea class="col-xs-12 col-sm-12" ng-click="openTextArea()" rows="{{numberOfRows}}"  style="border:none; padding:0px" placeholder="Any Comments? (optional)"></textarea>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12" style="border:1px solid black"></div>
+    </div>
+    <br>
+    <div class="row">
+        <button class="col-xs-3 col-sm-2 btn pull-right">Submit</button>
+    </div>
+</div>

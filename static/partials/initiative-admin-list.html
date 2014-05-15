@@ -1,0 +1,18 @@
+<h1>Initiatives</h1>
+<a href="#/initiatives_admin/0" class="btn btn-primary">Add Initiative</a><br />
+<form class="form-horizontal" role="form">
+	<div class='form-group'>
+		<label class="col-sm-3 control-label">Search</label>
+		<div class="col-sm-8">
+			<div class="btn-group btn-group-justified">
+				<input type="text" class="form-control" ng-model="searchText">
+				<span class="searchclear glyphicon glyphicon-remove-circle" ng-click="searchText=''" ng-show="searchText"></span>
+			</div>
+		</div>
+	</div>
+</form>
+<div class="row">
+	<div class="col-md-4" ng-repeat="initiative in initiatives | filter:searchText" ng-click="editInit(initiative)">
+		<div ng-include="'/static/partials/initiative-box.html'" style="cursor: pointer;"></div>
+	</div>
+</div>

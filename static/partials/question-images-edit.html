@@ -1,0 +1,26 @@
+<form name="questionEditForm" class="form-horizontal" role="form">
+	<ciq-form-input labelname="Category Name">
+		<input ng-model="imageQuestion.name" type="text" class="form-control" placeholder="enter category name">
+	</ciq-form-input>
+	<ciq-form-input labelname="Category Name">
+		<input ng-model="imageQuestion.name" type="text" class="form-control" placeholder="enter category name">
+	</ciq-form-input>
+	<ciq-form-input labelname="Image">
+		<input type="file" ng-file-select="onFileSelect($files)" >
+		<div id="file-drop" ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="optional-css-class">or drop image here</div>
+	</ciq-form-input>
+</form>
+<div>
+	<div ng-repeat="image in imageQuestion.images" class="question-image pull-left">
+		<div>Label: <input type="text" ng-model="image.label"></div>
+		<div>
+			<button ng-class="btnClass" ng-click="removeImg(image.img_id)">Remove</button>
+		</div>
+		<img ng-src="/get_img/{{ image.img_id }}" />
+	</div>
+</div>
+<div class="clr">
+	<button type=button class='btn btn-primary' ng-click="saveImageQuestion()" ng-disabled="!imgQuestionComplete(question)">Save</button>
+	<a href="#/questions" class="btn btn-primary">Cancel</a>
+</div>
+

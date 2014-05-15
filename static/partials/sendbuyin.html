@@ -1,0 +1,46 @@
+<div ng-cloak>
+	<h2>Select Up to 3 Initiatives</h2>
+	<div class="row" ng-repeat="initiative in filtered = (initiatives | initPrefFilter:initPrefs:'like')">
+		<div class="col-sm-6">
+			<input type="checkbox" ng-disabled="buyinList.length >= 3 && !buyinChecked[initiative.id]" ng-change="buyinChange(initiative)" ng-model="buyinChecked[initiative.id]" value="1">
+			{{ initiative.name }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4" ng-repeat="initiative in buyinList">
+			<div ng-include="'/static/partials/initiative-box.html'"></div>
+		</div>
+	</div>
+	<div ng-show="buyinList.length">
+		<form class="form-horizontal" role="form">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">New Name:</label>
+				<div class="col-sm-3">
+					<input type="text" ng-model="instanceName" class="form-control" placeholder="enter new name">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Send To:</label>
+				<div class="col-sm-3">
+					<select ng-model="sendToGroup" class="form-control" style="width: 200px;"><option value="">-- Select Group --</option>
+						<option value="-1">All</option>
+						<option ng-repeat="group in employeeGroups" value="{{ group.id }}">{{ group.name }} ({{ group.employee_ids.length }} members)</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Final date:</label>
+				<div class="col-sm-3">
+					<p class="input-group">
+					<input id="final-date-picker" type="text" class="form-control" datepicker-popup="mediumDate" ng-model="final_date" is-open="opened" min="minDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" show-button-bar="false" show-weeks="false" />
+					<span class="input-group-btn">
+						<button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+					</p>
+				</div>
+			</div>
+		</form>
+		<button class="btn btn-primary" ng-click="sendBuyin()" ng-disabled="!surveyReady()">Send It Out</button>
+	</div>
+</div>
+

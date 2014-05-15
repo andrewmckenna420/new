@@ -1,0 +1,90 @@
+<div ng-hide="selectedSurvey">
+	<div ng-repeat="survey in surveys">
+		<div class="list-item clr">
+			<div class="list-summary pull-left">
+				<div class="category-label">Name: {{ survey.name }}</div>
+				<div class="category-label">Question Count: {{ questionCount(survey) }}</div>
+			</div>
+			<div class="list-actions pull-right">
+				<button class="btn btn-primary" ng-click="selectSurvey(survey)">Select</button>
+				<button class="btn btn-primary" ng-click="previewSurvey(survey)">Preview</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div ng-show="selectedSurvey">
+	<div>
+		Survey Name: {{ survey.name }}<br>
+		# Question: {{ survey.question_ids.length }}
+	</div>
+
+	<div id="send-controls" ng-hide="customMode == true">
+		<div>
+			<a class="btn btn-primary" data-toggle="modal" data-target="#previewModal">
+				Preview
+			</a>
+			<button class="btn btn-primary" ng-click="startCustomize()">Customize</button>
+		</div>
+
+		<form class="form-horizontal" role="form">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">New Name:</label>
+				<div class="col-sm-3">
+					<input type="text" ng-model="instanceName" class="form-control" placeholder="enter new name">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Send To:</label>
+				<div class="col-sm-3">
+					<select ng-model="sendToGroup" class="form-control" style="width: 200px;"><option value="">-- Select Group --</option>
+						<option value="-2">Self Sent</option>
+						<option value="-1">All</option>
+						<option ng-repeat="group in employeeGroups" value="{{ group.id }}">{{ group.name }} ({{ group.employee_ids.length }} members)</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Final date:</label>
+				<div class="col-sm-3">
+					<p class="input-group">
+					<input id="final-date-picker" type="text" class="form-control" datepicker-popup="mediumDate" ng-model="final_date" is-open="opened" min="minDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" show-button-bar="false" show-weeks="false" />
+					<span class="input-group-btn">
+						<button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+					</p>
+				</div>
+			</div>
+		</form>
+
+		<button class="btn btn-primary" ng-click="sendOverall()" ng-disabled="!surveyReady()">Send It Out</button>
+		<div class="alert-area">
+			<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{ alert.msg }}</alert>
+		</div>
+	</div>
+</div>
+<div ng-show="customMode == true" id="customize-cont">
+	<button class='btn btn-primary' ng-click="finishCustomize()">Finished</button>
+
+	<div>
+		<div class='area-label'>Name: {{ survey.name }} </div>
+
+		<table class="table table-condensed">
+			<tbody ng-repeat="catId in survey.cat_order" ng-hide="catInfo[catId].qIn.length == 0">
+				<tr>
+					<td colspan=3>
+						Category: {{ nameFromId(catId, cats) }}
+					</td>
+				</tr>
+				<tr ng-repeat="question in catInfo[catId].qIn">
+					<td>{{ question.qtext }}</td>
+					<td style="width: 50px;"><button ng-model="question.exclude" btn-checkbox class="btn btn-primary" btn-checkbox-true="1" btn-checkbox-false="0">Exclude</button></td>
+					<td style="width: 50px;"><button ng-model="question.optional" btn-checkbox class="btn btn-primary" btn-checkbox-true="1" btn-checkbox-false="0" ng-disabled="question.exclude" ng-hide="question.qtype==5">Optional</button></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+</div>
+
+<div ng-include="'/static/partials/survey-preview-modal.html'">
+</div>

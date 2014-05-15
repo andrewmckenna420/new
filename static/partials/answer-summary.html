@@ -1,0 +1,17 @@
+<div ng-repeat="(answer, count) in answers | orderBy: answer">
+	Answer: {{ answer}}, Count: {{ count }}
+</div>
+<div ng-if="level">
+	Good: {{ level.good }}
+	<br>
+	Neutral: {{ level.neutral }}
+	<br>
+	Bad: {{ level.bad }}
+	<br>
+	<svg width="300" height="300">
+	<rect x="0" y="0" ng-attr-width="{{ 1 + 200 * level.good / level.total}}" height="20" fill="green"/>
+	<rect x="0" y="20" ng-attr-width="{{1 + 200 * level.neutral / level.total}}" height="20" fill="yellow"/>
+	<rect x="0" y="40" ng-attr-width="{{1 + 200 * level.bad / level.total}}" height="20" fill="red"/>
+	<text x="0" y="60" font-size="25px">{{ level.total}}</text>
+	</svg>
+</div>

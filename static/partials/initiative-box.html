@@ -1,0 +1,12 @@
+<div class="init-box">
+	<div class="init-img">
+		<img ng-src="/get_img/{{ initiative.img_id }}" ng-if="initiative.img_id" class="init-img">
+	</div>
+	<p>
+	Tags: {{ listCats(initiative.tags) }}
+	</p>
+	<p>
+	Name: {{initiative.name}}
+	</p>
+</div>
+

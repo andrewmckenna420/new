@@ -1,0 +1,37 @@
+<form name="surveyEditForm" class="form-horizontal top-form" role="form">
+	<ciq-form-input labelname="Survey Name">
+		<input type="text" ng-model="survey.name" class="form-control" placeholder="enter name">
+	</ciq-form-input>
+	<ciq-form-input labelname="Question Count">
+		<p class="form-control-static">{{ inQuestions.length }}</p>
+	</ciq-form-input>
+</form>
+
+<button type=button class='btn btn-primary' ng-click="saveSurvey()" ng-disabled="(surveyEditForm.$pristine && !surveyContentChanged) || !surveyComplete(survey)">Save</button>
+<a href="#/surveys" class="btn btn-primary">Cancel</a>
+
+<ul>
+	<li ng-repeat="catInfo in cats" ng-show="catAvailableQuestions[catInfo[0]].length || catInfo[1].length">
+	<div class="edit-survey-cat" style="overflow: auto;">
+		<div class="category-label">Category: {{ catInfo[1] }}</div>
+		<div class="category-question-select-area" ng-show="catAvailableQuestions[catInfo[0]].length">
+			<span class="">Select Question</span>
+			<select class="form-control category-question-select" ng-model="qSel[catInfo[0]]" ng-change="qSelChange(catInfo[0])">
+				<option value=""> -- Select Question -- {{ catInfo[0] }}</option>
+				<option ng-repeat="question in catAvailableQuestions[catInfo[0]]" value="{{ question.id }}">
+					{{ question.qtext }} ({{ nameFromId( question.qtype, qtypes ) }})
+				</option>
+			</select>
+		</div>
+		<div class="questions-in-survey" ng-show="catInfo[1].length">
+			<div class="area-label">Questions in Category</div>
+			<ul class="question-list sortable-list" ng-model="survey.questions_by_cat[catInfo[0]]" ui-sortable="sortableOptionsQids">
+				<li ng-repeat="qid in survey.questions_by_cat[catInfo[0]]" class="question-in-survey" id="question-in-survey-{{ qid }}">
+				{{ questionsById[qid].qtext }} ({{ nameFromId(questionsById[qid].qtype , qtypes) }}) 
+				<a class="delete-item" ng-click="delQuestionFromCat(qid, survey.questions_by_cat[catInfo[0]])">x</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	</li>
+</ul>

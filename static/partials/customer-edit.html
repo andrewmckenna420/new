@@ -1,0 +1,18 @@
+<form name="customerEditForm" class="form-horizontal" role="form">
+	<ciq-form-input labelname="Company Name">
+		<input type="text" ng-model="customer.name" class="form-control" placeholder="enter name">
+	</ciq-form-input>
+	<ciq-form-input labelname="Email">
+		<input type="email" ng-model="customer.email" class="form-control" placeholder="enter email">
+	</ciq-form-input>
+	<ciq-form-input labelname="Password">
+		<input type="password" ng-model="customer.password" class="form-control" placeholder="enter password">
+	</ciq-form-input>
+	<ciq-form-input labelname="Repeat Password">
+		<input type="password" ng-model="customer.password2" class="form-control" placeholder="enter password again">
+	</ciq-form-input>
+</form>
+
+<button type=button class='btn btn-primary' ng-click="saveCustomer()" ng-disabled="customerEditForm.$pristine || !customerComplete()">Save</button>
+<a href="#/customers" class="btn btn-primary">Cancel</a>
+

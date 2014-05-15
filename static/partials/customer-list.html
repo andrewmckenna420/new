@@ -1,0 +1,15 @@
+<a href="#/customers/0" class="btn btn-primary">Add Customer</a>
+<div class="list-area">
+	<div ng-repeat="customer in customers">
+		<div class="list-item clr">
+			<div class='pull-left'> {{ customer.name }} ({{customer.email}}) </div>
+			<div class="list-actions pull-right">
+				<a href="#/customers/{{ customer.id }}" class="btn btn-primary">Edit</a>
+				<button type="button" class="btn btn-primary" disabled="disabled">Delete</button>
+				<button type="button" class="btn btn-primary" ng-click="becomeCustomer(customer.id)">Become</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+

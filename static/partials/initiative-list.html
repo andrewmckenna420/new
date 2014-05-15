@@ -1,0 +1,77 @@
+<h1>Initiatives</h1>
+
+<div>
+	<ul class="nav nav-tabs">
+		<li class="active"><a data-toggle="tab" ng-click="activeTab = 'all'">All</a></li>
+		<li><a data-toggle="tab" ng-click="activeTab = 'like'" ng-show="initPrefs.like.length">Liked</a></li>
+		<li><a data-toggle="tab" ng-click="activeTab = 'done'" ng-show="initPrefs.done.length">Implemented</a></li>
+		<li><a data-toggle="tab" ng-click="activeTab = 'hide'" ng-show="initPrefs.hide.length">Hidden</a></li>
+	</ul>
+	<form class="form-horizontal" role="form">
+		<div class='form-group'>
+			<label class="col-sm-3 control-label">Search</label>
+			<div class="col-sm-4">
+				<div class="btn-group btn-group-justified">
+					<input type="search" class="form-control" ng-model="searchText">
+					<span class="searchclear glyphicon glyphicon-remove-circle" ng-click="searchText=''" ng-show="searchText"></span>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="tab-pane" ng-if="activeTab == 'all'">
+		<div class="row">
+			<div class="col-md-4" ng-repeat="initiative in filtered = (initiatives | initAllFilter:initPrefs) | filter:searchText" ng-click="editInit(initiative)">
+				<div class="dropdown">
+					<a class="btn btn-primary dropdown-toggle">Actions</a>
+					<ul class="dropdown-menu">
+						<li><a ng-click="setInitPref('like', initiative)">Like</a></li>
+						<li><a ng-click="setInitPref('done', initiative)">Implemented</a></li>
+						<li><a ng-click="setInitPref('hide', initiative)">Hide</a></li>
+					</ul>
+				</div>
+				<div ng-include="'/static/partials/initiative-box.html'"></div>
+			</div>
+		</div>
+	</div>
+	<div class="tab-pane" ng-if="activeTab == 'like'">
+		<div class="row">
+			<div class="col-md-4" ng-repeat="initiative in filtered = (initiatives | initPrefFilter:initPrefs:'like') | filter:searchText" ng-click="editInit(initiative)">
+				<div class="dropdown">
+					<a class="btn btn-primary dropdown-toggle">Actions</a>
+					<ul class="dropdown-menu">
+						<li><a ng-click="setInitPref('done', initiative)">Implemented</a></li>
+						<li><a ng-click="setInitPref('like', initiative, true)">Unlike</a></li>
+					</ul>
+				</div>
+				<div ng-include="'/static/partials/initiative-box.html'"></div>
+			</div>
+		</div>
+	</div>
+	<div class="tab-pane" ng-if="activeTab == 'done'">
+		<div class="row">
+			<div class="col-md-4" ng-repeat="initiative in filtered = (initiatives | initPrefFilter:initPrefs:'done') | filter:searchText" ng-click="editInit(initiative)">
+				<div class="dropdown">
+					<a class="btn btn-primary dropdown-toggle">Actions</a>
+					<ul class="dropdown-menu">
+						<li><a ng-click="setInitPref('done', initiative, true)">Not Implemented</a></li>
+					</ul>
+				</div>
+				<div ng-include="'/static/partials/initiative-box.html'"></div>
+			</div>
+		</div>
+	</div>
+	<div class="tab-pane" ng-if="activeTab == 'hide'">
+		<div class="row">
+			<div class="col-md-4" ng-repeat="initiative in filtered = (initiatives | initPrefFilter:initPrefs:'hide') | filter:searchText" ng-click="editInit(initiative)">
+				<div class="dropdown">
+					<a class="btn btn-primary dropdown-toggle">Actions</a>
+					<ul class="dropdown-menu">
+						<li><a ng-click="setInitPref('hide', initiative, true)">Unhide</a></li>
+					</ul>
+				</div>
+				<div ng-include="'/static/partials/initiative-box.html'"></div>
+			</div>
+		</div>
+	</div>
+</div>
+

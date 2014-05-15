@@ -1,0 +1,41 @@
+<form name="questionEditForm" class="form-horizontal" role="form">
+	<ciq-form-input labelname="Question Text">
+		<input ng-model="question.qtext" type="text" name="qtext" class="form-control" placeholder="enter text">
+	</ciq-form-input>
+	<ciq-form-input labelname="Category">
+		<select ng-model="question.cat" name="cat" class="form-control">
+			<option value=''>-- Select Category --</option>
+			<option ng-repeat="cat in cats" value={{cat[0]}}>{{cat[1]}}</option>
+		</select>
+	</ciq-form-input>
+	<ciq-form-input labelname="Tags">
+		<input ng-model="question.tags" type="text" name="tags" class="form-control" placeholder="enter text">
+	</ciq-form-input>
+	<ciq-form-input labelname="Question Type">
+		<select ng-model="question.qtype" class="form-control">
+			<option ng-repeat="qtype in qtypes" value={{qtype[0]}}>{{qtype[1]}}</option>
+		</select>
+	</ciq-form-input>
+	<ciq-form-input labelname="Image Category" ng-show="question.qtype == 4">
+		<select ng-model="question.qopts.imageCatId" class="form-control">
+			<option ng-repeat="ic in imageCats" value="{{ic.id}}">{{ic.name}}</option>
+		</select>
+	</ciq-form-input>
+	<ciq-form-input labelname="Extemes Text" ng-show="question.qtype == 1">
+		<select ng-model="question.qopts.scaleText" class="form-control">
+			<option ng-repeat="st in scaleText" value={{st[0]}}>{{st[1]}}</option>
+		</select>
+	</ciq-form-input>
+	<ciq-form-input labelname="Left Text" ng-show="question.qtype == 1 && question.qopts.scaleText == -1">
+		<input ng-model="question.qopts.scaleTextLeft" type="text" id="question-qopts-scaleTextLeft" class="form-control" placeholder="enter left text">
+	</ciq-form-input>
+	<ciq-form-input labelname="Right Text" ng-show="question.qtype == 1 && question.qopts.scaleText == -1">
+		<input ng-model="question.qopts.scaleTextRight"type="text" id="question-qopts-scaleTextRight" class="form-control" placeholder="enter right text">
+	</ciq-form-input>
+</form>
+<button type=button class='btn btn-primary' ng-click="saveQuestion()" ng-disabled="questionEditForm.$pristine || !questionComplete(question)">Save</button>
+<a href="#/questions" class="btn btn-primary">Cancel</a>
+
+<h1>Question Preview</h1>
+<div id="question-preview-area" ng-include="'/static/partials/question-preview.html'">
+</div>

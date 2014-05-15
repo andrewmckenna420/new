@@ -1,0 +1,117 @@
+<form name="EmployeeEditForm" class="form-horizontal" role="form">
+	<ciq-form-input labelname="First Name">
+			<input type="text" ng-model="newEmployee.fname" class="form-control" placeholder="enter first name">
+	</ciq-form-input>
+	<ciq-form-input labelname="Last Name">
+			<input type="text" ng-model="newEmployee.lname" class="form-control" placeholder="enter last name">
+	</ciq-form-input>
+	<ciq-form-input labelname="Email">
+			<input type="email" ng-model="newEmployee.email" class="form-control" placeholder="enter email" ng-required>
+	</ciq-form-input>
+	<button class="btn btn-primary" ng-disabled="!newEmployeeComplete()" ng-click="saveNewEmployee()">Add Employee</button>
+	<button type="reset" class="btn btn-primary">Clear</button>
+	<input type="file" ng-file-select="onFileSelect($files)" />
+</form>
+<div class="alert-area">
+	<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{ alert.msg }}</alert>
+</div>
+<div class="list-area">
+	<form class="form-horizontal" role="form">
+		<div id='survey-data-alert-area'></div>
+		<div>Number of Employees: {{ employees.length }} </div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label pull-left">
+				Search For: 
+			</label>
+			<input type="text" class="form-control" style="width: 200px;" ng-model="search" placeholder="Search ...">
+			FILTER: {{ selectFiltered() }}
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label pull-left">
+				Order By: 
+			</label>
+			<select class="form-control pull-left" ng-model="orderby" style="width: 200px;">
+				<option value="fname" selected>First Name</option>
+				<option value="lname">Last Name</option>
+				<option value="email">Email</option>
+			</select>
+		</div>
+		<div id="list-actions">
+			<div class="dropdown pull-left">
+				<button data-toggle="dropdown" data-target="#" class="btn">
+					Select <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li role="presentation">
+					<a role="menuitem" ng-click="selectAll()">Select All</a>
+					</li>
+					<li role="presentation">
+					<a role="menuitem" ng-click="selectNone()">Select None</a>
+					</li>
+				</ul>
+			</div>
+			<button class="btn pull-left" ng-click="makeGroup()" style="margin: 0 0 0 5px;">Create Group</button>
+			<div class="dropdown pull-left" style="margin: 0 0 0 5px;" ng-show="selCount() && employeeGroups.length">
+				<button data-toggle="dropdown" data-target="#" class="btn">
+					Add To Group <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li role="presentation" ng-repeat="eg in employeeGroups">
+					<a role="menuitem" ng-click="addToGroup(eg.id)">{{eg.name}} ({{ eg.employee_ids.length }} members)</a>
+					</li>
+				</ul>
+			</div>
+			<div class="dropdown pull-left" style="margin: 0 0 0 5px;" ng-show="selCount() && employeeGroups.length">
+				<button data-toggle="dropdown" data-target="#" class="btn">
+					Remove From Group <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li role="presentation" ng-repeat="eg in employeeGroups">
+					<a role="menuitem" ng-click="rmFromGroup(eg.id)">{{eg.name}} ({{ eg.employee_ids.length }} members)</a>
+					</li>
+				</ul>
+			</div>
+			<div class="pull-left" ng-show="selCount()">
+				Number Selected: {{ selCount() }}
+			</div>
+		</div>
+	</form>
+	<table class="table table-condensed">
+		<thead>
+			<tr><th>#</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Groups</th><th style="width: 150px">&nbsp;</th></tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="employee in employees | orderBy:orderby | filter:search" ng-click="rowToggle(employee.id)" ng-class="{active: rowSel[employee.id]}">
+			<td>{{$index + 1}}</td>
+			<td>
+				<span ng-hide="editEmployee[employee.id]">{{ employee.fname }}</span>
+				<span ng-hide="!editEmployee[employee.id]"><input type="text" class="form-control" ng-model="editEmployee[employee.id].fname"></span>
+			</td>
+			<td>
+				<span ng-hide="editEmployee[employee.id]">{{ employee.lname }}</span>
+				<span ng-hide="!editEmployee[employee.id]"><input type="text" class="form-control" ng-model="editEmployee[employee.id].lname"></span>
+			</td>
+			<td>
+				<span ng-hide="editEmployee[employee.id]">{{ employee.email }}</span>
+				<span ng-hide="!editEmployee[employee.id]"><input type="email" class="form-control" ng-model="editEmployee[employee.id].email"></span>
+			</td>
+			<td>
+				<div class="employee-group-name" ng-repeat="groupName in groupsByEmployee[employee.id]">
+					{{ groupName }}
+				</div>
+			</td>
+			<td>
+				<span ng-hide="editEmployee[employee.id]">
+					<button class="btn btn-primary" ng-click="startEdit(employee.id)">Edit</button>
+					<button class="btn btn-primary" ng-click="deleteEmployee(employee.id)">Delete</button>
+				</span>
+				<span ng-hide="!editEmployee[employee.id]">
+					<button class="btn btn-primary" ng-click="saveEdit(employee.id)" ng-disabled="!dirtyAndValid(employee.id)">Save</button>
+					<button class="btn btn-primary" ng-click="endEdit(employee.id)">Cancel</button>
+				</span>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
+

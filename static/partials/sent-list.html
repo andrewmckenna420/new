@@ -1,0 +1,21 @@
+<div class="list-area">
+	<table class="table table-condensed">
+		<thead>
+			<tr><th>#</th><th>Name</th><th>Sent</th><th>Due</th><th>Questions</th><th>Recipients</th><th style="width: 150px">&nbsp;</th></tr>
+		</thead>
+		<tr ng-repeat="instance in instances">
+			<td>{{$index + 1}}</td>
+			<td>{{ instance.name }}</td>
+			<td>{{ instance.created * 1000 | date : 'short' }}</td>
+			<td>{{ instance.final_date * 1000 | date : 'shortDate' }}</td>
+			<td>{{ instance.questions.length }}</td>
+			<td>{{ instance.takers.length }}</td>
+			<td>
+				<a href="#/sent/{{ instance.id }}" class="btn btn-primary">Details</a>
+				<button class="btn btn-primary" ng-click="viewSurvey(instance.id)">View</button>
+			</td>
+		</tr>
+	</table>
+</div>
+<div ng-include="'/static/partials/survey-preview-modal.html'">
+</div>

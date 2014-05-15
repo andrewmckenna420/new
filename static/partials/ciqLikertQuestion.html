@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12" style="padding:0px">Q1. How do you feel about Quisque eu nisi convallis on a likert scale?</div>
+    </div>
+    <br>
+
+    <div class="row-fluid">
+        <div class="col-xs-12 col-sm-12" style="padding:0px">
+            <div class="col-xs-2 col-sm-2" style="padding:0px" ng-click="selectOption(1)">
+                <div class="col-xs-12 col-sm-12 text-center">:{</div>
+                <br>
+                <div class="col-xs-12 col-sm-12" ng-class="{likert1:selected ==1}" style="height: 5px"></div>
+                <div class="col-xs-12 col-sm-12" style="background-color:red;height: 10px"></div>
+                <div class="col-xs-12 col-sm-12 text-center"> <p>STRONGLY DISAGREE</p></div>
+            </div>
+            <div class="col-xs-2 col-sm-2" style="padding:0px" ng-click="selectOption(2)">
+                <div class="col-xs-12 col-sm-12 text-center">:(</div>
+                <br>
+                <div class="col-xs-12 col-sm-12" ng-class="{likert2:selected ==2}" style="height: 5px" ></div>
+                <div class="col-xs-12 col-sm-12" style="background-color:orange;height: 10px"></div>
+                <div class="col-xs-12 col-sm-12 text-center"> <p>DISAGREE</p></div>
+            </div>
+            <div class="col-xs-2 col-sm-2" style="padding:0px" ng-click="selectOption(3)">
+                <div class="col-xs-12 col-sm-12 text-center">:|</div>
+                <br>
+                <div class="col-xs-12 col-sm-12" ng-class="{likert3:selected ==3}" style="height: 5px"></div>
+                <div class="col-xs-12 col-sm-12" style="background-color:yellow;height: 10px"></div>
+                <div class="col-xs-12 col-sm-12 text-center"> <p>NO OPINION</p></div>
+            </div>
+            <div class="col-xs-2 col-sm-2" style="padding:0px" ng-click="selectOption(4)">
+                <div class="col-xs-12 col-sm-12 text-center">:)</div>
+                <br>
+                <div class="col-xs-12 col-sm-12" ng-class="{likert4:selected ==4}" style="height: 5px"></div>
+                <div class="col-xs-12 col-sm-12" style="background-color:greenyellow;height: 10px"></div>
+                <div class="col-xs-12 col-sm-12 text-center"> <p>AGREE</p></div>
+            </div>
+            <div class="col-xs-2 col-sm-2" style="padding:0px" ng-click="selectOption(5)">
+                <div class="col-xs-12 col-sm-12 text-center">:}</div>
+                <br>
+                <div class="col-xs-12 col-sm-12" ng-class="{likert5:selected ==5}" style="height: 5px"></div>
+                <div class="col-xs-12 col-sm-12" style="background-color:green;height: 10px"></div>
+                <div class="col-xs-12 col-sm-12 text-center"> <p>STRONGLY AGREE</p></div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <textarea class="col-xs-12 col-sm-12" ng-click="openTextArea()" rows="{{numberOfRows}}"  style="border:none; padding:0px" placeholder="Any Comments? (optional)"></textarea>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12" style="border:1px solid black"></div>
+    </div>
+    <br>
+    <div class="row">
+        <button class="col-xs-3 col-sm-2 btn pull-right">Submit</button>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<a href="#/surveys/0" class="btn btn-primary" ng-show="ciqAdmin">Add Survey</a>
+<div class="list-area">
+	<div id='survey-data-alert-area'></div>
+	<div ng-repeat="survey in surveys">
+		<div class="list-item clr">
+			<div class="list-summary pull-left">
+				<div class="category-label">Name: {{ survey.name }}</div>
+				<div class="category-label">Question Count: {{ questionIds(survey).length }}</div>
+			</div>
+			<div class="list-actions pull-right">
+				<a href="#/surveys/{{ survey.id }}" class="btn btn-primary" ng-show="ciqAdmin">Edit</a>
+				<button class="btn btn-primary" ng-click="previewSurvey(survey.id)">Preview</button>
+				<a href="#/surveys/send/{{ survey.id }}" class="btn btn-primary" ng-hide="ciqAdmin">Send</a>
+				<button type="button" class="btn btn-primary" ng-click="surveyDelete(this)" ng-disabled="true" ng-show="ciqAdmin">Delete</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div ng-include="'/static/partials/survey-preview-modal.html'">
+</div>
+

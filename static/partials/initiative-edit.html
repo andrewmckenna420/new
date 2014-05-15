@@ -1,0 +1,27 @@
+<div id="initiativeAdd">
+	<form name="initiativeEditForm" class="form-horizontal" role="form">
+		<ciq-form-input labelname="Initiative Name">
+			<input ng-model="initiative.name" type="text" name="name" class="form-control" placeholder="enter name">
+		</ciq-form-input>
+		<ciq-form-input labelname="Description">
+			<textarea class="form-control" name="descr" ng-model="initiative.descr" rows="4"></textarea>
+		</ciq-form-input>
+		<ciq-form-input labelname="Tags">
+			<button btn-checkbox class="btn btn-checkbox" ng-repeat="cat in cats" ng-model="initCats[cat[0]]" style="margin: 0 5px 5px 0;">{{cat[1]}}</button>
+		</ciq-form-input>
+		<ciq-form-input labelname="Image">
+			<div ng-hide="initiative.img_id">
+				<input type="file" ng-file-select="onFileSelect($files)" >
+				<div id="file-drop" ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="optional-css-class">or drop image here</div>
+			</div>
+			<div ng-show="initiative.img_id">
+				<img ng-src="/get_img/{{ initiative.img_id }}" ng-if="initiative.img_id" />
+				<br>
+				<button class="btn btn-primary" ng-click="initiative.img_id = null">Remove Image</button>
+			</div>
+		</ciq-form-input>
+		<button type=button class='btn btn-primary' ng-click="saveInit()" ng-disabled="!dirtyAndValid()">Save</button>
+		<a href="#/initiatives_admin" class="btn btn-primary">Cancel</a>
+	</form>
+</div>
+

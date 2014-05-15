@@ -1,0 +1,43 @@
+<div class="row question-container">
+	<div class="col-md-1">
+		#.
+	</div>
+	<div class="col-md-4">
+		<div class="question-text">{{ qtext }}</div>
+	</div>
+	<div class="col-md-6">
+		<div ng-show="qtype == 1" class="question-scale pull-left"><ciq-likert left-scale='{{leftScale}}' right-scale='{{rightScale}}'></ciq-likert></div>
+		<div ng-show="qtype == 2" class="question-tf btn-group" data-toggle="buttons">
+			<label class="btn btn-default"> <input type="radio" name="question-tf-preview" value="1">True</label><label class="btn btn-default"> <input type="radio" name="question-tf-preview" value="0">False</label>
+		</div>
+		<div ng-show="qtype == 5 && isListView">TEXT INPUT</div>
+	</div>
+</div>
+<div class="row row-padded" ng-show="qtype == 4 && question.qopts.imageCatId && question.qopts.images">
+	<div class="col-md-6">
+		<div ng-repeat="imgInfo in question.qopts.images" class="image-cat-box">
+			<img ng-src="/get_img/{{ imgInfo.img_id }}" class="image-cat-img-preview" />
+		</div>
+	</div>
+</div>
+<div class="row" ng-show="qtype == 11">
+	<div class="col-md-6">
+		<div ng-repeat="choice in question.qopts.choices">
+			<input type="radio" name="demoQ" Xng-model="demoQ"> {{ choice }}
+		</div>
+	</div>
+</div>
+<div class="row" ng-show="qtype == 12">
+	<div class="col-md-6">
+		<input type="text" class="form-input">
+	</div>
+</div>
+<div class="row" ng-hide="qtype > 10 || isListView">
+	<div class="col-md-1">
+		&nbsp;
+	</div>
+	<div class="col-md-4">
+		<textarea placeholder="enter comment" class="form-control" rows="2"></textarea>
+	</div>
+</div>
+

@@ -1,0 +1,303 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+	  display: none !important;
+  }
+
+body {
+	font-family: 'Avenir Next', Arial;
+	font-size: 18px;
+}
+
+a {cursor: pointer;}
+
+.row-padded {
+	padding: 10px 0 10px 0;
+}
+.culture-green {
+	color: rgb(97, 225, 103);
+}
+
+
+.culture-green-bg {
+	background-color: rgb(97, 225, 103);
+	color: white;
+}
+
+.sidebar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+
+/* Sidebar navigation 
+.nav-sidebar {
+  margin-right: -21px; */ /* 20px padding + 1px border */
+  /*margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a {
+  color: #fff;
+  background-color: #428bca;
+}
+*/
+/* login screen */
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.error_msg {
+	color: red;
+	font-weight: bold;
+	font-size: 25px;
+}
+
+#question-preview-area {
+	background-color: #fee;
+	padding: 5px;
+	margin: 5px;
+}
+
+.question-text {
+	font-family: 'Avenir Next', Arial;
+	font-size: 18px;
+}
+
+.category-label {
+	font-family: 'Avenir Next', Arial;
+	font-size: 18px;
+	
+}
+
+.question-scale {
+	margin-left: 0px;
+	overflow: auto;
+}
+
+.scale-text {
+	padding-left: 5px;
+	padding-right: 5px;
+	font-family: 'Avenir Next', Arial;
+	font-size: 14px;
+	width: 68px;
+	text-align: center;
+	float: left;
+}
+
+.scale-select {
+	float: left;
+}
+
+.scale-select-square {
+	height: 40px;
+	width: 40px;
+	background-color: #d1ecbd;
+	margin-left: 2px;
+	float: left;
+}
+
+.highlight .scale-select-square {
+	background-color: #82e288;
+}
+
+.list-area {
+	XXdisplay: table;
+}
+
+.list-item {
+	border: 1px solid black;
+	overflow: auto;
+	vertical-align: middle;
+	padding: 5px;
+	margin: 5px;
+}
+
+.list-num {
+	margin-top: auto;
+	float: left;
+	width: 10px;
+}
+
+.list-cb {
+	float: left;
+	margin: 4px;
+	width: 10px;
+}
+
+.clr {
+	clear: both;
+}
+.question-input {
+	float: left;
+	width: 350px;
+}
+
+.list-actions {
+	float: left;
+}
+
+.edit-survey-cat {
+	padding: 5px;
+	margin: 5px;
+	border: 1px solid black;
+	background-color: #ddd;
+}
+
+.questions-in-survey {
+	padding: 5px;
+	margin: 5px;
+	background-color: #dfd;
+}
+
+.area-label {
+	font-family: 'Avenir Next', Arial;
+	font-size: 18px;
+}
+
+.delete-item {
+	cursor: pointer;
+}
+
+#survey-preview {
+	padding: 10px;
+	border: 2px solid black;
+	position: absolute;
+	top: 60px;
+	left: 20px;
+	width: 800px;
+	z-index: 10;
+	background-color: white;
+}
+
+.survey-preview-question {
+	padding: 5px;
+	margin: 5px;
+}
+
+.sortable-list {
+	cursor: move;
+}
+
+.border-bottom {
+	border-bottom: 1px solid black;
+}
+
+.score-bar {
+	background-color: green;
+	font-size: 12px;
+	padding: 3px;
+	font-weight: bold;
+}
+
+.main-view {
+	padding-top: 20px;
+}
+.searchclear {
+	position: absolute;
+	right: 5px;
+	top: 0;
+	bottom: 0;
+	height: 14px;
+	margin: auto;
+	font-size: 14px;
+	cursor: pointer;
+	color: #ccc;
+}
+
+.init-box {
+	margin: 10px;
+	background-color: #DDD;
+	height: 300px;
+	width: 224px;
+}
+
+.init-img {
+	width: 224px;
+	height: 145px;
+	background-color: lightgreen;
+}
+
+#file-drop {
+	width: 300px;
+	height: 100px;
+	background-color: white;
+	color: black;
+	font-weight: bold;
+	border: 1px solid black;
+	padding: 5px;
+}
+.btn-checkbox.active, .btn-checkbox:active {
+	background-color: #AAF;
+}
+
+.question-image {
+	padding: 5px;
+}
+
+.init-img {
+	width: 224px
+	height: 145px;
+}
+
+.image-cat-box {
+	float: left;
+}
+
+.image-cat-img-preview {
+	width: 100px;
+}
+
+/*Created by Andrew */
+.bold{
+    font-weight: bold;
+}
+.font-small{
+    font-size: 10px;
+}

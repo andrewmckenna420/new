@@ -1,0 +1,22 @@
+<form class="form-horizontal" role="form">
+	<ciq-form-input labelname="Question Name">
+		<input ng-model="question.name" type="text" class="form-control" placeholder="enter name">
+	</ciq-form-input>
+	<ciq-form-input labelname="Question Text">
+		<input ng-model="question.qtext" type="text" class="form-control" placeholder="enter text">
+	</ciq-form-input>
+	<ciq-form-input labelname="Question Type">
+		<div class="btn-group">
+			<button type="button" class="btn btn-primary btn-checkbox" ng-model="question.qtype" btn-radio="11">Mult Choice</button>
+			<button type="button" class="btn btn-primary btn-checkbox" ng-model="question.qtype" btn-radio="12">Text Input</button>
+		</div>
+	</ciq-form-input>
+	<ciq-form-input labelname="Choices" ng-show="question && question.qtype == 11">
+		<input ng-model="question.newChoice" type="text" class="form-control" placeholder="enter choice" ciq-enter="addChoice()">
+		<ul class="sortable-list" ng-model="question.qopts.choices" ui-sortable>
+			<li ng-repeat="choice in question.qopts.choices">{{ choice }} <a class="delete-item" ng-click="delChoice($index)">x</a></li>
+		</ul>
+	</ciq-form-input>
+</form>
+<button type=button class='btn btn-primary' ng-click="saveDemoQuestion()" ng-disabled="!demoQuestionComplete()">Save</button>
+<a href="#/questions" class="btn btn-primary">Cancel</a>

@@ -1,0 +1,36 @@
+<h1>Survey Management</h1>
+
+
+<div class="row">
+	<a href="#/survey_mgmt/fullsurvey" class="btn btn-primary">Full Survey</a>
+</div>
+
+<div class="row">
+	<h1>Previous Surveys</h1>
+</div>
+
+<div class="list-area">
+	<table class="table table-condensed">
+		<thead>
+			<tr><th>#</th><th>Take</th><th>Sent</th><th>Due</th><th>Recipients</th><th>Completed</th><th style="width: 150px">&nbsp;</th></tr>
+		</thead>
+		<tr ng-repeat="instance in instances">
+			<td>{{$index + 1}}</td>
+			<td>
+				<a href="/takesurvey/{{instance.token}}" target="_blank">Take Survey</a>
+			</td>
+			<td>{{ instance.created | date : 'short' }}</td>
+			<td>{{ instance.final_date | date : 'shortDate' }}</td>
+			<td>{{ instance.takers.length }}</td>
+			<td>{{ takersCompletedLength(instance) }}</td>
+			<td>
+				<a href="#/survey_mgmt/{{ instance.id }}" class="btn btn-primary">Details</a>
+				<button class="btn btn-primary" ng-click="viewSurvey(instance.id)">View</button>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div ng-include="'/static/partials/survey-instance-preview-modal.html'">
+</div>
+

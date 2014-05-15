@@ -1,0 +1,56 @@
+<ul class="nav nav-tabs">
+	<li class="active"><a data-toggle="tab" ng-click="activeTab = 'score'">Survey Questions</a></li>
+	<li><a data-toggle="tab" ng-click="activeTab = 'images'">Image Categories</a></li>
+	<li><a data-toggle="tab" ng-click="activeTab = 'demo'">Demographics</a></li>
+</ul>
+<div ng-show="activeTab == 'score'">
+	<a href="#/questions/0" class="btn btn-primary">Add Question</a><br />
+	<form class="form-horizontal" role="form">
+		<div class='form-group'>
+			<label class="col-sm-3 control-label">Search</label>
+			<div class="col-sm-6">
+				<div class="btn-group">
+					<input type="search" class="form-control" ng-model="searchText">
+					<span class="searchclear glyphicon glyphicon-remove-circle" ng-click="searchText=''" ng-show="searchText"></span>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div>
+		<div id='question-data-alert-area'></div>
+		<div class='border-bottom' ng-include="'/static/partials/question-preview.html'" ng-repeat="question in questions | filter:searchText">
+		</div>
+	</div>
+</div>
+
+<div ng-show="activeTab == 'images'">
+	<a href="#/questions_img_cats/0" class="btn btn-primary">Add Image Category</a><br />
+	<div class="row" ng-repeat="iq in imageCats">
+		<div class="col-md-6">
+			{{ iq.name }}
+		</div>
+		<div class="col-md-6">
+			<a href="#/questions_img_cats/{{ iq.id }}" class="btn btn-primary">Edit</a>
+		</div>
+	</div>
+</div>
+
+<div ng-show="activeTab == 'demo'">
+	<a href="#/questions_demo/0" class="btn btn-primary">Add Demo Question</a><br />
+	<div class="row border-bottom" ng-repeat="dq in demoQuestions">
+		<div class="col-md-3">
+			{{ dq.qtext }}
+		</div>
+		<div class="col-md-6">
+			<div ng-if="dq.qtype == 11" ng-repeat="choice in dq.qopts.choices">
+				{{$index + 1}}) {{ choice }}<br>
+			</div>
+			<div ng-if="dq.qtype == 12">
+				TEXT INPUT
+			</div>
+		</div>
+		<div class="col-md-3">
+			<a href="#/questions_demo/{{ dq.id }}" class="btn btn-primary">Edit</a>
+		</div>
+	</div>
+</div>

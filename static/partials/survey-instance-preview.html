@@ -1,0 +1,21 @@
+<a href="#/surveys" class='btn btn-primary' ng-show="showBackButton">BACK</a>
+
+<div id='survey-preview' class='survey-preview'>
+	<div class='area-label'>Name: {{ survey.name }} </div>
+	<div ng-show="instance.demo.length">
+		<h1>Demographic Questions</h1>
+		<ciq-question ng-repeat="dq in instance.demo" question="dq">
+		</ciq-question>
+	</div>
+
+	<div>
+		<h1> FULL SURVEY </h1>
+		<ciq-instance-questions instance="instance"></ciq-instance-questions>
+
+	</div>
+	<div ng-show="instance.custom.length">
+		<h1>Custom Questions</h1>
+		<ciq-question ng-repeat="cq in instance.custom" qtype="1" question="cq">
+		</ciq-question>
+	</div>
+</div>

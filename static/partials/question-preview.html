@@ -1,0 +1,40 @@
+<div class="category-label" ng-show="questionList">Category: {{ nameFromId(question.cat, cats) }}</div>
+<div class="row question-container">
+	<div class="col-md-1">
+		#.
+	</div>
+	<div class="col-md-4">
+		<div class="question-text">{{ question.qtext }}</div>
+	</div>
+	<div class="col-md-6">
+		<div ng-show="question.qtype == 1" class="question-scale pull-left"><ciq-likert left-scale='{{ question | scaleTextLR:"Left":scaleText }}' right-scale='{{ question | scaleTextLR:"Right":scaleText }}'></ciq-likert></div>
+		<div ng-show="question.qtype == 2" class="question-tf btn-group" data-toggle="buttons">
+			<label class="btn btn-default"> <input type="radio" name="question-tf-preview" value="1">True</label><label class="btn btn-default"> <input type="radio" name="question-tf-preview" value="0">False</label>
+		</div>
+		<div ng-show="question.qtype == 5 && isListView">TEXT INPUT</div>
+	</div>
+	<div class="col-md-1" ng-show="isListView">
+		<a href="#/questions/{{question.id}}" class="btn btn-primary">Edit</a>
+	</div>
+</div>
+<div class="row row-padded" ng-show="question.qtype == 4 && question.qopts.imageCatId">
+	<div class="col-md-6">
+		<div ng-repeat="imgInfo in imageCatImages(question.qopts.imageCatId)" class="image-cat-box">
+			<img ng-src="/get_img/{{ imgInfo.img_id }}" class="image-cat-img-preview" />
+		</div>
+	</div>
+</div>
+<div class="row" ng-show="question.qtype == 11">
+	<div ng-repeat="choice in question.qopts.choices">
+		<input type="radio" name="demoQ" Xng-model="demoQ"> {{ choice }}
+	</div>
+</div>
+<div class="row" ng-hide="question.qtype > 10 || isListView">
+	<div class="col-md-1">
+		&nbsp;
+	</div>
+	<div class="col-md-4">
+		<textarea placeholder="enter comment" class="form-control" rows="2"></textarea>
+	</div>
+</div>
+

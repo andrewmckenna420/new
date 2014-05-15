@@ -1,0 +1,81 @@
+<div ng-cloak>
+	<div>
+		Sent: {{ instance.created | date : 'short' }}
+	</div>
+
+	<div>
+		Due: {{ instance.final_date| date : 'shortDate' }}
+	</div>
+
+	<div>
+		Recipients: {{ instance.takers.length }}
+	</div>
+
+	<div>
+		Completed: ( {{ (takersCompletedLength(instance) / instance.takers.length  * 100) | number:2 }}%)
+	</div>
+
+	<div>
+		<div ng-hide="instance.sent_group_id == -2">
+			<table class="table table-condensed">
+				<thead>
+					<tr><th>Employee</th><td>Survey Link</td></tr>
+				</thead>
+				<tr ng-repeat="taker in instance.takers">
+					<td>{{ taker.fname }} {{taker.lname}} ({{taker.email}})</td>
+					<td>
+						<a ng-hide="taker.complete" href="/take/{{ taker.token }}" target=_blank>Take Survey</a>
+						<span ng-show="taker.complete" ng-click="logResults(taker)" style="cursor:pointer;">Already Taken</span>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div ng-show="instance.sent_group_id == -2">
+			<a href="/takesurvey/{{ instance.token }}" target="_blank">Take Survey</a>
+		</div>
+
+	</div>
+
+	<div ng-repeat="question in instance.questions">
+		<div class="row border-bottom">
+			<div class="col-md-5">
+				{{ question.qtext }} (Cat: {{ nameFromId(question.cat, cats) }})
+			</div>
+			<div class="col-md-2">
+				<div ng-repeat="result in showQuestionStats(instance.results.answers_by_q[$index + 1])">
+					{{ result }}
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div ng-repeat="comment in instance.results.comments[$index + 1]">{{ comment }}</div>
+			</div>
+		</div>
+	</div>
+
+	<h1>Category Scores</h1>
+	<div ng-repeat="sq in sentQuestions">
+		<div>
+			<p>Question: {{ sq.qtext }}
+			<p>Section: {{ sectionName(sq.section) }}
+			<p> Answers: <ciq-answers question="sq" answers="sq.answers"></ciq-answers>
+			<p ng-show="sq.comments.length">
+			Comments: <ul><li ng-repeat="comment in sq.comments">{{ comment }}</li></ul>
+			</p>
+			<hr>
+		
+		</div>
+	
+	</div>
+	<div class="row row-padded" ng-repeat="catId in instance.cat_order | filter:hasStats">
+		<div class="col-md-2 text-right">
+			{{nameFromId(catId, cats)}}
+		</div>
+		<div class="col-md-6">
+			<div>
+				<div class="score-bar" style="width:{{ instance.results.stats_by_cat[catId].score }}%">
+					{{ instance.results.stats_by_cat[catId].score }}%
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
